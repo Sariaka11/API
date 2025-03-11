@@ -1,0 +1,12 @@
+{
+  "Version": 1,
+  "Hash": "5y3h/bnQDACcxo32+WVgNRqZ4r6P5vjWcuk5/JpJmtM=",
+  "Source": "Api_oracle",
+  "BasePath": "_content/Api_oracle",
+  "Mode": "Default",
+  "ManifestType": "Build",
+  "ReferencedProjectsConfiguration": [],
+  "DiscoveryPatterns": [],
+  "Assets": [],
+  "Endpoints": []
+}
