@@ -21,6 +21,32 @@ namespace API.Models
 
         [ForeignKey("AgenceId")]
         public virtual Agence Agence { get; set; }
+
+        // Nouveaux attributs
+        [Required]
+        [Column(TypeName = "decimal(18, 2)")]
+        public decimal PrixUnitaire { get; set; }
+
+        [Required]
+        public int Quantite { get; set; }
+
+        [Required]
+        [Column(TypeName = "decimal(18, 2)")]
+        public decimal PrixTotal { get; private set; }
+
+        [Required]
+        public int QuantiteRestante { get; set; }
+
+        [Required]
+        [Column(TypeName = "decimal(18, 2)")]
+        public decimal Montant { get; private set; }
+
+        // Méthode pour calculer les valeurs dérivées
+        public void CalculerValeurs()
+        {
+            PrixTotal = PrixUnitaire * Quantite;
+            Montant = PrixUnitaire * QuantiteRestante;
+        }
     }
 }
 

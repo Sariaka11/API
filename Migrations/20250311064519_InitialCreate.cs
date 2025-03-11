@@ -33,7 +33,12 @@ namespace Api_oracle.Migrations
                         .Annotation("Oracle:Identity", "START WITH 1 INCREMENT BY 1"),
                     NOM = table.Column<string>(type: "NVARCHAR2(100)", maxLength: 100, nullable: false),
                     DATE = table.Column<DateTime>(type: "TIMESTAMP(7)", nullable: false),
-                    AGENCE_ID = table.Column<int>(type: "NUMBER(10)", nullable: false)
+                    AGENCE_ID = table.Column<int>(type: "NUMBER(10)", nullable: false),
+                    PrixUnitaire = table.Column<decimal>(type: "decimal(18,2)", nullable: false),
+                    Quantite = table.Column<int>(type: "NUMBER(10)", nullable: false),
+                    PrixTotal = table.Column<decimal>(type: "decimal(18,2)", nullable: false),
+                    QuantiteRestante = table.Column<int>(type: "NUMBER(10)", nullable: false),
+                    Montant = table.Column<decimal>(type: "decimal(18,2)", nullable: false)
                 },
                 constraints: table =>
                 {

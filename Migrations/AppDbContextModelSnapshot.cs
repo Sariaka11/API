@@ -68,11 +68,26 @@ namespace Api_oracle.Migrations
                         .HasColumnType("TIMESTAMP(7)")
                         .HasColumnName("DATE");
 
+                    b.Property<decimal>("Montant")
+                        .HasColumnType("decimal(18, 2)");
+
                     b.Property<string>("Nom")
                         .IsRequired()
                         .HasMaxLength(100)
                         .HasColumnType("NVARCHAR2(100)")
                         .HasColumnName("NOM");
+
+                    b.Property<decimal>("PrixTotal")
+                        .HasColumnType("decimal(18, 2)");
+
+                    b.Property<decimal>("PrixUnitaire")
+                        .HasColumnType("decimal(18, 2)");
+
+                    b.Property<int>("Quantite")
+                        .HasColumnType("NUMBER(10)");
+
+                    b.Property<int>("QuantiteRestante")
+                        .HasColumnType("NUMBER(10)");
 
                     b.HasKey("Id");
 

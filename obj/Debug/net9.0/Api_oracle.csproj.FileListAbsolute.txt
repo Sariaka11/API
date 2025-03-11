@@ -129,3 +129,4 @@ C:\Users\Sariaka\Api_oracle\Api_oracle\obj\Debug\net9.0\refint\Api_oracle.dll
 C:\Users\Sariaka\Api_oracle\Api_oracle\obj\Debug\net9.0\Api_oracle.pdb
 C:\Users\Sariaka\Api_oracle\Api_oracle\obj\Debug\net9.0\Api_oracle.genruntimeconfig.cache
 C:\Users\Sariaka\Api_oracle\Api_oracle\obj\Debug\net9.0\ref\Api_oracle.dll
+C:\Users\Sariaka\Api_oracle\Api_oracle\obj\Debug\net9.0\Api_oracle.sourcelink.json

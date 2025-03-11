@@ -30,7 +30,12 @@ namespace API.Services
                 Nom = f.Nom,
                 Date = f.Date,
                 AgenceId = f.AgenceId,
-                AgenceNom = f.Agence?.Nom
+                AgenceNom = f.Agence?.Nom,
+                PrixUnitaire = f.PrixUnitaire,
+                Quantite = f.Quantite,
+                PrixTotal = f.PrixTotal,
+                QuantiteRestante = f.QuantiteRestante,
+                Montant = f.Montant
             });
         }
 
@@ -49,7 +54,12 @@ namespace API.Services
                 Nom = fourniture.Nom,
                 Date = fourniture.Date,
                 AgenceId = fourniture.AgenceId,
-                AgenceNom = fourniture.Agence?.Nom
+                AgenceNom = fourniture.Agence?.Nom,
+                PrixUnitaire = fourniture.PrixUnitaire,
+                Quantite = fourniture.Quantite,
+                PrixTotal = fourniture.PrixTotal,
+                QuantiteRestante = fourniture.QuantiteRestante,
+                Montant = fourniture.Montant
             };
         }
 
@@ -66,7 +76,12 @@ namespace API.Services
                 Nom = f.Nom,
                 Date = f.Date,
                 AgenceId = f.AgenceId,
-                AgenceNom = f.Agence?.Nom
+                AgenceNom = f.Agence?.Nom,
+                PrixUnitaire = f.PrixUnitaire,
+                Quantite = f.Quantite,
+                PrixTotal = f.PrixTotal,
+                QuantiteRestante = f.QuantiteRestante,
+                Montant = f.Montant
             });
         }
 
@@ -83,7 +98,12 @@ namespace API.Services
                 Nom = f.Nom,
                 Date = f.Date,
                 AgenceId = f.AgenceId,
-                AgenceNom = f.Agence?.Nom
+                AgenceNom = f.Agence?.Nom,
+                PrixUnitaire = f.PrixUnitaire,
+                Quantite = f.Quantite,
+                PrixTotal = f.PrixTotal,
+                QuantiteRestante = f.QuantiteRestante,
+                Montant = f.Montant
             });
         }
 
@@ -94,13 +114,53 @@ namespace API.Services
             if (agence == null)
                 throw new Exception("L'agence spécifiée n'existe pas.");
 
-            // Créer la nouvelle fourniture
+            // Vérifier si une fourniture avec le même nom existe déjà
+            var existingFourniture = await _context.Fournitures
+                .FirstOrDefaultAsync(f => f.Nom == fournitureDto.Nom && f.AgenceId == fournitureDto.AgenceId);
+
+            if (existingFourniture != null)
+            {
+                // Mettre à jour la fourniture existante
+                existingFourniture.Date = fournitureDto.Date;
+                existingFourniture.PrixUnitaire = fournitureDto.PrixUnitaire;
+                
+                // Ajouter la nouvelle quantité à la quantité restante
+                existingFourniture.QuantiteRestante += fournitureDto.Quantite;
+                existingFourniture.Quantite = fournitureDto.Quantite;
+                
+                // Recalculer les valeurs dérivées
+                existingFourniture.CalculerValeurs();
+                
+                await _context.SaveChangesAsync();
+                
+                return new FournitureDto
+                {
+                    Id = existingFourniture.Id,
+                    Nom = existingFourniture.Nom,
+                    Date = existingFourniture.Date,
+                    AgenceId = existingFourniture.AgenceId,
+                    AgenceNom = agence.Nom,
+                    PrixUnitaire = existingFourniture.PrixUnitaire,
+                    Quantite = existingFourniture.Quantite,
+                    PrixTotal = existingFourniture.PrixTotal,
+                    QuantiteRestante = existingFourniture.QuantiteRestante,
+                    Montant = existingFourniture.Montant
+                };
+            }
+            
+            // Créer une nouvelle fourniture
             var fourniture = new Fourniture
             {
                 Nom = fournitureDto.Nom,
                 Date = fournitureDto.Date,
-                AgenceId = fournitureDto.AgenceId
+                AgenceId = fournitureDto.AgenceId,
+                PrixUnitaire = fournitureDto.PrixUnitaire,
+                Quantite = fournitureDto.Quantite,
+                QuantiteRestante = fournitureDto.Quantite // Initialement, la quantité restante est égale à la quantité
             };
+            
+            // Calculer les valeurs dérivées
+            fourniture.CalculerValeurs();
 
             _context.Fournitures.Add(fourniture);
             await _context.SaveChangesAsync();
@@ -111,7 +171,12 @@ namespace API.Services
                 Nom = fourniture.Nom,
                 Date = fourniture.Date,
                 AgenceId = fourniture.AgenceId,
-                AgenceNom = agence.Nom
+                AgenceNom = agence.Nom,
+                PrixUnitaire = fourniture.PrixUnitaire,
+                Quantite = fourniture.Quantite,
+                PrixTotal = fourniture.PrixTotal,
+                QuantiteRestante = fourniture.QuantiteRestante,
+                Montant = fourniture.Montant
             };
         }
 
@@ -126,10 +191,21 @@ namespace API.Services
             if (agence == null)
                 throw new Exception("L'agence spécifiée n'existe pas.");
 
+            // Calculer l'ajustement de la quantité restante
+            int quantiteAjustement = fournitureDto.Quantite - fourniture.Quantite;
+            
             // Mettre à jour la fourniture
             fourniture.Nom = fournitureDto.Nom;
             fourniture.Date = fournitureDto.Date;
             fourniture.AgenceId = fournitureDto.AgenceId;
+            fourniture.PrixUnitaire = fournitureDto.PrixUnitaire;
+            fourniture.Quantite = fournitureDto.Quantite;
+            
+            // Ajuster la quantité restante
+            fourniture.QuantiteRestante += quantiteAjustement;
+            
+            // Recalculer les valeurs dérivées
+            fourniture.CalculerValeurs();
 
             await _context.SaveChangesAsync();
 
@@ -139,7 +215,12 @@ namespace API.Services
                 Nom = fourniture.Nom,
                 Date = fourniture.Date,
                 AgenceId = fourniture.AgenceId,
-                AgenceNom = agence.Nom
+                AgenceNom = agence.Nom,
+                PrixUnitaire = fourniture.PrixUnitaire,
+                Quantite = fourniture.Quantite,
+                PrixTotal = fourniture.PrixTotal,
+                QuantiteRestante = fourniture.QuantiteRestante,
+                Montant = fourniture.Montant
             };
         }
 
