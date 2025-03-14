@@ -1,8 +1,3 @@
-C:\Users\Sariaka\Api_oracle\Api_oracle\obj\Debug\net9.0\Api_oracle.csproj.AssemblyReference.cache
-C:\Users\Sariaka\Api_oracle\Api_oracle\obj\Debug\net9.0\Api_oracle.GeneratedMSBuildEditorConfig.editorconfig
-C:\Users\Sariaka\Api_oracle\Api_oracle\obj\Debug\net9.0\Api_oracle.AssemblyInfoInputs.cache
-C:\Users\Sariaka\Api_oracle\Api_oracle\obj\Debug\net9.0\Api_oracle.AssemblyInfo.cs
-C:\Users\Sariaka\Api_oracle\Api_oracle\obj\Debug\net9.0\Api_oracle.csproj.CoreCompileInputs.cache
 C:\Users\Sariaka\Api_oracle\Api_oracle\bin\Debug\net9.0\appsettings.json
 C:\Users\Sariaka\Api_oracle\Api_oracle\bin\Debug\net9.0\Api_oracle.staticwebassets.endpoints.json
 C:\Users\Sariaka\Api_oracle\Api_oracle\bin\Debug\net9.0\Api_oracle.exe
@@ -111,8 +106,14 @@ C:\Users\Sariaka\Api_oracle\Api_oracle\bin\Debug\net9.0\runtimes\win\lib\net8.0\
 C:\Users\Sariaka\Api_oracle\Api_oracle\bin\Debug\net9.0\runtimes\linux\lib\net8.0\System.DirectoryServices.Protocols.dll
 C:\Users\Sariaka\Api_oracle\Api_oracle\bin\Debug\net9.0\runtimes\osx\lib\net8.0\System.DirectoryServices.Protocols.dll
 C:\Users\Sariaka\Api_oracle\Api_oracle\bin\Debug\net9.0\runtimes\win\lib\net8.0\System.DirectoryServices.Protocols.dll
+C:\Users\Sariaka\Api_oracle\Api_oracle\obj\Debug\net9.0\Api_oracle.csproj.AssemblyReference.cache
+C:\Users\Sariaka\Api_oracle\Api_oracle\obj\Debug\net9.0\Api_oracle.GeneratedMSBuildEditorConfig.editorconfig
+C:\Users\Sariaka\Api_oracle\Api_oracle\obj\Debug\net9.0\Api_oracle.AssemblyInfoInputs.cache
+C:\Users\Sariaka\Api_oracle\Api_oracle\obj\Debug\net9.0\Api_oracle.AssemblyInfo.cs
+C:\Users\Sariaka\Api_oracle\Api_oracle\obj\Debug\net9.0\Api_oracle.csproj.CoreCompileInputs.cache
 C:\Users\Sariaka\Api_oracle\Api_oracle\obj\Debug\net9.0\Api_oracle.MvcApplicationPartsAssemblyInfo.cs
 C:\Users\Sariaka\Api_oracle\Api_oracle\obj\Debug\net9.0\Api_oracle.MvcApplicationPartsAssemblyInfo.cache
+C:\Users\Sariaka\Api_oracle\Api_oracle\obj\Debug\net9.0\Api_oracle.sourcelink.json
 C:\Users\Sariaka\Api_oracle\Api_oracle\obj\Debug\net9.0\scopedcss\bundle\Api_oracle.styles.css
 C:\Users\Sariaka\Api_oracle\Api_oracle\obj\Debug\net9.0\staticwebassets.build.json
 C:\Users\Sariaka\Api_oracle\Api_oracle\obj\Debug\net9.0\staticwebassets.development.json
@@ -129,4 +130,3 @@ C:\Users\Sariaka\Api_oracle\Api_oracle\obj\Debug\net9.0\refint\Api_oracle.dll
 C:\Users\Sariaka\Api_oracle\Api_oracle\obj\Debug\net9.0\Api_oracle.pdb
 C:\Users\Sariaka\Api_oracle\Api_oracle\obj\Debug\net9.0\Api_oracle.genruntimeconfig.cache
 C:\Users\Sariaka\Api_oracle\Api_oracle\obj\Debug\net9.0\ref\Api_oracle.dll
-C:\Users\Sariaka\Api_oracle\Api_oracle\obj\Debug\net9.0\Api_oracle.sourcelink.json

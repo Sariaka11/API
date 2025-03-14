@@ -4463,7 +4463,7 @@
       "Microsoft.AspNetCore.Mvc.Core >= 2.2.5",
       "Microsoft.EntityFrameworkCore >= 9.0.0",
       "Microsoft.EntityFrameworkCore.Tools >= 9.0.0",
-      "Oracle.EntityFrameworkCore >= 9.0.0",
+      "Oracle.EntityFrameworkCore >= 9.23.60",
       "Swashbuckle.AspNetCore >= 6.5.0"
     ]
   },
@@ -4534,7 +4534,7 @@
           },
           "Oracle.EntityFrameworkCore": {
             "target": "Package",
-            "version": "[9.0.0, )"
+            "version": "[9.23.60, )"
           },
           "Swashbuckle.AspNetCore": {
             "target": "Package",
@@ -4563,17 +4563,5 @@
         "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\9.0.200/PortableRuntimeIdentifierGraph.json"
       }
     }
-  },
-  "logs": [
-    {
-      "code": "NU1603",
-      "level": "Warning",
-      "warningLevel": 1,
-      "message": "Api_oracle dépend de Oracle.EntityFrameworkCore (>= 9.0.0) mais Oracle.EntityFrameworkCore 9.0.0 est introuvable. Oracle.EntityFrameworkCore 9.23.60 a été résolu à la place.",
-      "libraryId": "Oracle.EntityFrameworkCore",
-      "targetGraphs": [
-        "net9.0"
-      ]
-    }
-  ]
+  }
 }

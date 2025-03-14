@@ -17,6 +17,8 @@ builder.Services.AddScoped<IUserService, UserService>();
 builder.Services.AddScoped<IAgenceService, AgenceService>();
 builder.Services.AddScoped<IFournitureService, FournitureService>();
 builder.Services.AddScoped<IPasswordHasher, BcryptPasswordHasher>();
+builder.Services.AddScoped<AuthService>();
+
 
 // Configurer Swagger
 builder.Services.AddEndpointsApiExplorer();
