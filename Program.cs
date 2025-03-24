@@ -1,12 +1,17 @@
+using API.Data;  // Pour AppDbContext
+using API.Services;  // Pour IUserService, UserService, AgenceService, FournitureService, AuthService
+using API.Middleware; 
 using Microsoft.EntityFrameworkCore;
-using Microsoft.OpenApi.Models;
-using API.Data;
-using API.Services;
+ // Pour JsonRequestMiddleware
 
 var builder = WebApplication.CreateBuilder(args);
 
 // Ajouter les services au conteneur
-builder.Services.AddControllers();
+builder.Services.AddControllers()
+    .AddJsonOptions(options =>
+    {
+        options.JsonSerializerOptions.Converters.Add(new API.Helpers.IntJsonConverter());
+    });
 
 // Configurer la connexion à la base de données Oracle
 builder.Services.AddDbContext<AppDbContext>(options =>
@@ -19,39 +24,42 @@ builder.Services.AddScoped<IFournitureService, FournitureService>();
 builder.Services.AddScoped<IPasswordHasher, BcryptPasswordHasher>();
 builder.Services.AddScoped<AuthService>();
 
-
-// Configurer Swagger
-builder.Services.AddEndpointsApiExplorer();
-builder.Services.AddSwaggerGen(c =>
-{
-    c.SwaggerDoc("v1", new OpenApiInfo { Title = "API Fournitures", Version = "v1" });
-});
-
-// Configurer CORS
+// Configurer CORS - Configuration simplifiée pour permettre toutes les origines
 builder.Services.AddCors(options =>
 {
-    options.AddPolicy("AllowAll", builder =>
-    {
-        builder.AllowAnyOrigin()
-               .AllowAnyMethod()
-               .AllowAnyHeader();
-    });
+    options.AddPolicy("AllowAll",
+        policy =>
+        {
+            policy.AllowAnyOrigin()
+                  .AllowAnyMethod()
+                  .AllowAnyHeader();
+        });
 });
 
 var app = builder.Build();
 
+// IMPORTANT: Placez UseCors avant les autres middlewares
+app.UseCors("AllowAll");
+
+// Middleware pour traiter les requêtes JSON
+app.UseMiddleware<JsonRequestMiddleware>();
+
 // Configurer le pipeline de requêtes HTTP
 if (app.Environment.IsDevelopment())
 {
-    app.UseDeveloperExceptionPage();
-    app.UseSwagger();
-    app.UseSwaggerUI(c => c.SwaggerEndpoint("/swagger/v1/swagger.json", "API Fournitures v1"));
+    // Supprimer Swagger ici
+    // app.UseSwagger();
+    // app.UseSwaggerUI(c => c.SwaggerEndpoint("/swagger/v1/swagger.json", "API Fournitures v1"));
 }
 
-app.UseHttpsRedirection();
-app.UseRouting();
-app.UseCors("AllowAll");
+// Commentez cette ligne si vous rencontrez des problèmes avec HTTPS
+// app.UseHttpsRedirection();
+
+app.UseRouting();    // Placez ceci après UseCors()
 app.UseAuthorization();
 app.MapControllers();
+
+// Définir le port d'écoute sur 5000
+app.Urls.Add("http://localhost:5000");
 
 app.Run();

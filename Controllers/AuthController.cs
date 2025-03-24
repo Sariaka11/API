@@ -3,6 +3,7 @@ using API.DTOs;
 using API.Models;
 using API.Services;
 using System.Threading.Tasks;
+using System;
 
 namespace API.Controllers
 {
@@ -11,10 +12,12 @@ namespace API.Controllers
     public class AuthController : ControllerBase
     {
         private readonly AuthService _authService;
+        private readonly IAgenceService _agenceService;
 
-        public AuthController(AuthService authService)
+        public AuthController(AuthService authService, IAgenceService agenceService)
         {
             _authService = authService;
+            _agenceService = agenceService;
         }
 
         [HttpPost("login")]
@@ -38,20 +41,34 @@ namespace API.Controllers
         [HttpPost("register")]
         public async Task<IActionResult> Register([FromBody] CreateUserDto createUserDto)
         {
-            var user = new User
+            try
             {
-                Nom = createUserDto.Nom,
-                Prenom = createUserDto.Prenom,
-                Email = createUserDto.Email,
-                MotDePasse = createUserDto.MotDePasse, // Il sera hashé dans le service
-                AgenceId = createUserDto.AgenceId
-            };
+                // Convertir AgenceId de string à int
+                if (!int.TryParse(createUserDto.AgenceId, out int agenceId))
+                {
+                    return BadRequest(new { message = "L'ID de l'agence doit être un nombre valide." });
+                }
 
-            var success = await _authService.RegisterUserAsync(user);
-            if (!success)
-                return BadRequest(new { message = "L'email est déjà utilisé" });
+                var user = new User
+                {
+                    Nom = createUserDto.Nom,
+                    Prenom = createUserDto.Prenom,
+                    Email = createUserDto.Email,
+                    MotDePasse = createUserDto.MotDePasse, // Il sera hashé dans le service
+                    AgenceId = agenceId
+                };
 
-            return Ok(new { message = "Utilisateur créé avec succès" });
+                var success = await _authService.RegisterUserAsync(user);
+                if (!success)
+                    return BadRequest(new { message = "L'email est déjà utilisé" });
+
+                return Ok(new { message = "Utilisateur créé avec succès" });
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(new { message = ex.Message });
+            }
         }
     }
 }
+

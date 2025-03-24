@@ -9,10 +9,12 @@ namespace API.Services
     public class AuthService
     {
         private readonly AppDbContext _context;
+        private readonly IPasswordHasher _passwordHasher;
 
-        public AuthService(AppDbContext context)
+        public AuthService(AppDbContext context, IPasswordHasher passwordHasher)
         {
             _context = context;
+            _passwordHasher = passwordHasher;
         }
 
         public async Task<User> ValidateUserAsync(string email, string motDePasse)
@@ -21,7 +23,7 @@ namespace API.Services
                                      .Include(u => u.Agence)
                                      .FirstOrDefaultAsync(u => u.Email == email);
 
-            if (user == null || !VerifyPassword(motDePasse, user.MotDePasse))
+            if (user == null || !_passwordHasher.VerifyPassword(motDePasse, user.MotDePasse))
                 return null;
 
             return user;
@@ -32,23 +34,12 @@ namespace API.Services
             if (await _context.Users.AnyAsync(u => u.Email == user.Email))
                 return false;
 
-            user.MotDePasse = HashPassword(user.MotDePasse); // Hashing the password
+            user.MotDePasse = _passwordHasher.HashPassword(user.MotDePasse); // Hashing the password
 
             _context.Users.Add(user);
             await _context.SaveChangesAsync();
             return true;
         }
-
-        // Utilisation de BCrypt pour le hachage du mot de passe
-        private string HashPassword(string motDePasse)
-        {
-            return BCrypt.Net.BCrypt.HashPassword(motDePasse);
-        }
-
-        // Utilisation de BCrypt pour vérifier le mot de passe
-        private bool VerifyPassword(string motDePasse, string storedHash)
-        {
-            return BCrypt.Net.BCrypt.Verify(motDePasse, storedHash);
-        }
     }
 }
+

@@ -30,7 +30,7 @@ namespace API.DTOs
         public string MotDePasse { get; set; }
 
         [Required]
-        public int AgenceId { get; set; }
+        public string AgenceId { get; set; } // Changé de int à string
     }
 
     public class UpdateUserDto
@@ -48,7 +48,7 @@ namespace API.DTOs
         public string MotDePasse { get; set; }
 
         [Required]
-        public int AgenceId { get; set; }
+        public string AgenceId { get; set; } // Changé de int à string
     }
 
     public class LoginDto

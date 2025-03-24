@@ -63,8 +63,12 @@ namespace API.Services
             if (await _context.Users.AnyAsync(u => u.Email == userDto.Email))
                 throw new Exception("Un utilisateur avec cet email existe déjà.");
 
+            // Convertir AgenceId de string à int
+            if (!int.TryParse(userDto.AgenceId, out int agenceId))
+                throw new Exception("L'ID de l'agence doit être un nombre valide.");
+
             // Vérifier si l'agence existe
-            var agence = await _context.Agences.FindAsync(userDto.AgenceId);
+            var agence = await _context.Agences.FindAsync(agenceId);
             if (agence == null)
                 throw new Exception("L'agence spécifiée n'existe pas.");
 
@@ -75,7 +79,7 @@ namespace API.Services
                 Prenom = userDto.Prenom,
                 Email = userDto.Email,
                 MotDePasse = _passwordHasher.HashPassword(userDto.MotDePasse),
-                AgenceId = userDto.AgenceId
+                AgenceId = agenceId
             };
 
             _context.Users.Add(user);
@@ -102,8 +106,12 @@ namespace API.Services
             if (await _context.Users.AnyAsync(u => u.Email == userDto.Email && u.Id != id))
                 throw new Exception("Un autre utilisateur avec cet email existe déjà.");
 
+            // Convertir AgenceId de string à int
+            if (!int.TryParse(userDto.AgenceId, out int agenceId))
+                throw new Exception("L'ID de l'agence doit être un nombre valide.");
+
             // Vérifier si l'agence existe
-            var agence = await _context.Agences.FindAsync(userDto.AgenceId);
+            var agence = await _context.Agences.FindAsync(agenceId);
             if (agence == null)
                 throw new Exception("L'agence spécifiée n'existe pas.");
 
@@ -111,7 +119,7 @@ namespace API.Services
             user.Nom = userDto.Nom;
             user.Prenom = userDto.Prenom;
             user.Email = userDto.Email;
-            user.AgenceId = userDto.AgenceId;
+            user.AgenceId = agenceId;
 
             // Mettre à jour le mot de passe si fourni
             if (!string.IsNullOrEmpty(userDto.MotDePasse))
